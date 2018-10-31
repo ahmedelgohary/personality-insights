@@ -1,8 +1,10 @@
 from flask import Flask
+from clean_data import clean_data
 app = Flask(__name__)
 
 @app.route('/')
-def hello():
+def main():
+    clean_data.clean_messages()
     return "Hello, World"
     
 

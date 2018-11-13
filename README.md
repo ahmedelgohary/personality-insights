@@ -41,4 +41,4 @@ This is done by:
 2) Vectorizing using term frequency - inverse document frequency (tf-idf) encoding
 3) Selecting the top 20,000 features from the vector by getting rid of rare tokens, and using f_classif to get the most important features
 
-Since we have multi-class classification, we will be using softmax as our activation function and categorical cross entropy as our loss function
+Since we have multi-class classification, we will be using softmax as our activation function and categorical cross entropy as our loss function. Dropout regularlization will be used to train the neural network, in order to prevent overfitting in our classification.

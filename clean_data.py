@@ -20,5 +20,5 @@ class clean_data():
                 pass
             except FileNotFoundError:
                 # get rid of useless folders
-                shutil.rmtree(os.getcwd() + "/" + conversation) #
+                shutil.rmtree(os.getcwd() + "/" + conversation) 
 

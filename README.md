@@ -36,4 +36,9 @@ Some metrics:
 
 Since our number of samples is 8675, with around 1278 words per sample, our number of samples/number of words per sample ratio is around 7. Hence, we will be tokenizing the text as n-grams and using a multi-layer perceptron to classify them. An n-gram model will handle the texts as different "sets" of words. 
 
-This is done by doing the following steps:
+This is done by:
+1) Tokenizing the data into word unigrams and bigrams
+2) Vectorizing using term frequency - inverse document frequency (tf-idf) encoding
+3) Selecting the top 20,000 features from the vector by getting rid of rare tokens, and using f_classif to get the most important features
+
+Since we have multi-class classification, we will be using softmax as our activation function and categorical cross entropy as our loss function

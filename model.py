@@ -6,6 +6,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.feature_selection import SelectKBest
 from sklearn.feature_selection import f_classif
 from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import LabelEncoder
 from keras.models import Sequential
 from keras.layers import Dense, Dropout
 from keras import optimizers, callbacks, losses
@@ -70,6 +71,11 @@ class Model():
         x_train = selector.transform(x_train).astype('float32')
         x_test = selector.transform(x_test).astype('float32')
 
+        # Label encoding to convert the labels to numerical data
+        labelencoder = LabelEncoder()
+        test_labels = labelencoder.fit_transform(test_labels)
+        train_labels = labelencoder.transform(train_labels)
+        
         return x_train, x_test, train_labels, test_labels
 
     def mlp_model(self, features):
@@ -109,10 +115,12 @@ class Model():
         x_train, x_test, train_labels, test_labels = self.vectorize()
         print(x_train.shape[1:])
         model = self.mlp_model(x_train.shape[1:])
-
+        print(model.summary())
         optimizer = optimizers.Adam(lr=1e-3)    # learning rate of 1e-3
+        print(model.summary())
         model.compile(optimizer=optimizer,
-                      loss=losses.categorical_crossentropy, metrics=['acc'])
+                      loss=losses.sparse_categorical_crossentropy,
+                      metrics=['accuracy'])
 
         # call back to stop early when losing validation, i.e. stop if loss doesn't decrease in two consecutive tries
         callback = [callbacks.EarlyStopping(monitor='val_loss', patience=2)]

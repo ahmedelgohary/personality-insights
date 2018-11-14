@@ -1,6 +1,9 @@
 # surrounding-me
-https://travis-ci.com/ahmedelgohary/surrounding-me.svg?token=bg9PLDmYCBsbE4hyvqF8&branch=master
+
 ---
+[![Build Status](https://travis-ci.com/ahmedelgohary/surrounding-me.svg?token=bg9PLDmYCBsbE4hyvqF8&branch=master)](https://travis-ci.com/ahmedelgohary/surrounding-me)
+
+
 Surrounding me is a program that utilizes machine learning to determine your friends' personalities, using the Myers–Briggs Type Indicator (MBTI). These personalities consist of 4 letters, where each letter could be one of two options, Introversion (I) vs Extraversion (E), Sensing (S) vs Intuition (N), Thinking (T) vs Feeling (F) and Judging (J) vs Perceiving (P). This gives us 2^4 personality types, or 16 different personalities. 
 
 

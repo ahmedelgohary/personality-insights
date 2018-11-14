@@ -3,7 +3,11 @@ language: python
 python:
 - "3.6"
 
-before_install:
+env: 
+  secure:
+    secure: "kTWTcTO2WIMFrptpp2XdC/COxYEZI5iDVHQN4c4bGFOKeWBYuIfPb7KEvrKu7SorNPE3OJaJu+BGhR2jQC4m4JpcpcokuKeOHEGWo7Z7+PwGXTxxpk4RI+JhWV8e4KE5M7XkO7pFs8keHS1DSKipm78m3E7PgXlB1ebFC3AJS6sY5nga9Wz/QDSGd9a88S4xsWR2dMqWGNZADxYupiykdA4RIRt7jJ654bhcCe6XtTX0c6t2mwT8Y6UFbwTy25DEckJafabLXF9rBHvx+d6t8lQb/PkIiB1XvTLh95byYPf7oNBLbPxXXt3l6Q0OsinQqKokd35hAUNOKxwnDUr4em/ndrdhRVlc4QYCvAf/YVYUcxm+XBv8HFfyRX2uTCezyMmGkhTWc2pPcdXWslQmxKxZxThiPSNiytjXJVbz7zi05hdkRK6i5M3OXlYzm3HcTPRAWt9n15kIRkntDde3FxpnPEsF1FYGdnFg57vUOkVdmpxqgCCXweSr4QE7zhZAk/gDw0PiJuSyu9DDQGi4LCK6hNd49sIqyWpA3DHIqURqSU1Ot+7KOSuth3pX/vM5mEEWwgqOTXCwME6u4S4WQqXImJ5PNY5oTEPux5i9ClSyiLuC+voiwBWk/NJYTc9SB53PVStwog6T4gLqKFjfcNlHxHWPsD3bqRX8XAH1+Qg="
+
+    before_install:
   - pip install --upgrade pip
   - pip install pep8
   - pip install autopep8
@@ -26,7 +30,8 @@ script:
       if (( $num_errors_after < $num_errors_before )); then
           git commit -a -m "PEP-8 Fix"
           git config --global push.default simple 
-          git push --quiet
+          git push -f --quiet https://<me>:$GITHUB_API_KEY@github.com/<me>/<myrepo>
       fi
+
   - cd "$TRAVIS_BUILD_DIR"
   - find . -name \*.py -exec pep8 --ignore=E402 {} +

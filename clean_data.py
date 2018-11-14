@@ -1,4 +1,8 @@
-import json, os, re, shutil
+import json
+import os
+import re
+import shutil
+
 
 class clean_data():
     @staticmethod
@@ -7,18 +11,17 @@ class clean_data():
 
         for conversation in os.listdir():
             try:
-                if re.match("facebook", conversation, re.IGNORECASE):   
+                if re.match("facebook", conversation, re.IGNORECASE):
                     # get rid of unknown users
-                    shutil.rmtree(os.getcwd() + "/" + conversation)   
-                with open(conversation + "/message.json") as f: 
+                    shutil.rmtree(os.getcwd() + "/" + conversation)
+                with open(conversation + "/message.json") as f:
                     data = json.load(f)
                     if data["thread_type"] != "Regular":
                         # get rid of any conversation that's not one-on-one
-                        shutil.rmtree(os.getcwd() + "/" + conversation)   
-                    
+                        shutil.rmtree(os.getcwd() + "/" + conversation)
+
             except NotADirectoryError:
                 pass
             except FileNotFoundError:
                 # get rid of useless folders
-                shutil.rmtree(os.getcwd() + "/" + conversation) 
-
+                shutil.rmtree(os.getcwd() + "/" + conversation)

@@ -56,7 +56,8 @@ class Model():
             analyzer='word',    # create word tokens
             min_df=2)   # gets rid of tokens appearing in less than 2 docs
 
-        # Creates our term-frequency inverse document frequency matrix, with columns = number of terms and rows = our corpus size
+        # Creates our term-frequency inverse document frequency matrix
+        # with columns = number of terms and rows = our corpus size
         x_train = vectorizer.fit_transform(train_texts)
         # already learned about our corpus, so we can just use transform
         x_test = vectorizer.transform(test_texts)
@@ -73,13 +74,16 @@ class Model():
 
     def mlp_model(self, features):
         '''
-        Uses the Sequential model in Keras to create a linear stack of layers to build an n-gram model
-        Returns an instance of a multi-layer perceptron model using Softmax as the activation function and categorical cross-entropy as our loss function
+        Uses the Sequential model in Keras to create a linear stack of layers to
+        build an n-gram model.
+        Returns an instance of a multi-layer perceptron model using Softmax as the
+        activation function and categorical cross-entropy as our loss function
         Has a Dropout rate of 20% for regularization and 64 as the output dimension of the layers
         '''
 
         model = Sequential([
-            # Our input layer with our shape tuple to take arrays of the shape (*, n) where n = the number of features from our tf-idf matrix
+            # Our input layer with our shape tuple to take arrays of the shape (*, n)
+            # where n = the number of features from our tf-idf matrix
             Dropout(rate=0.2, input_shape=features),
 
             # Use 2 Dense layers
@@ -88,13 +92,14 @@ class Model():
             Dense(units=64, activation='relu'),
             Dropout(rate=0.2),
 
-            # Output layer, using softmax as our activation function for multi-class classification and 16 output parameters for 16 personalities
+            # Output layer, using softmax as our activation function for multi-class
+            # classification and 16 output parameters for 16 personalities
             Dense(units=16, activation='softmax')])
 
         return model
 
     def train_model(self):
-        ''' 
+        '''
         Train our model using:
         Accuracy as the metric
         Categorical Cross Entropy as our loss function

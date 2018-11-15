@@ -64,7 +64,7 @@ class Model():
         x_test = vectorizer.transform(test_texts)
 
         # Use f_classif to calculate feature importance and get the 20,000 most important features
-        selector = SelectKBest(f_classif, k=20000)
+        selector = SelectKBest(f_classif, min(20000, x_train.shape[1]))
         # Run score function on the posts with the target values (labels)
         selector.fit(x_train, train_labels)
 
@@ -75,7 +75,7 @@ class Model():
         labelencoder = LabelEncoder()
         test_labels = labelencoder.fit_transform(test_labels)
         train_labels = labelencoder.transform(train_labels)
-        
+
         return x_train, x_test, train_labels, test_labels
 
     def mlp_model(self, features):
@@ -101,7 +101,7 @@ class Model():
             # Output layer, using softmax as our activation function for multi-class
             # classification and 16 output parameters for 16 personalities
             Dense(units=16, activation='softmax')])
-
+        print(model.summary())
         return model
 
     def train_model(self):
@@ -113,17 +113,14 @@ class Model():
         '''
 
         x_train, x_test, train_labels, test_labels = self.vectorize()
-        print(x_train.shape[1:])
         model = self.mlp_model(x_train.shape[1:])
-        print(model.summary())
         optimizer = optimizers.Adam(lr=1e-3)    # learning rate of 1e-3
-        print(model.summary())
         model.compile(optimizer=optimizer,
                       loss=losses.sparse_categorical_crossentropy,
                       metrics=['accuracy'])
 
         # call back to stop early when losing validation, i.e. stop if loss doesn't decrease in two consecutive tries
-        callback = [callbacks.EarlyStopping(monitor='val_loss', patience=2)]
+        callback = [callbacks.EarlyStopping(monitor='val_loss', patience=3)]
 
         # Train and validate model.
         history = model.fit(
@@ -133,7 +130,7 @@ class Model():
             callbacks=callback,
             validation_data=(x_test, test_labels),
             verbose=2,  # Logs once per epoch.
-            batch_size=512)
+            batch_size=100)
 
         # Print the results
         history = history.history

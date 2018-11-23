@@ -1,0 +1,18 @@
+language: python
+
+python:
+- '3.6'
+
+env:
+  global:
+    secure: uefFdLtGAbgh3roqGoVSya5HxujxQOLR8VG/96tNXCKA/nO5k9wXVsqD1Sb4Nl8CQZd672J0oibrPL0jIWdG2q6SWwGpuaaJiYcgl5w/Pu1mEu4O/6158g4vuVIZmLs+/dlCLfiqRw059Ntghj1z2li/0U8gFhn54aD3Krjmt2OQ6o5lkFzbk0RfBRq36t1WpU3m/J92xEykBsqStA7Te3KZIVGUUryQ0al+B2n0MNHp+p3dqe7A+sqnCcR08eUCt3RjzNFiYRM0xyVIVQexGKmXxi5Q6pKr3aMENhwhNcLfFyI1L/2dWf9lC8og0EoGT1vTtCvK4Bbh5RpA6L8GiIaYx1doJvEilamryYK8JRwrUi8tRA7m0Sog90oA9+k9xAOSfwEW0IIBHUacQj/6rHQfsJ083X4hc382e14mbjc5wZ+wfTFgj58Ku0Bw17gypSL/3TW0mjl3YGFi6DfSkZIeEiil4j0OAL0z64+VxEvxm0F4knbENoycEwq8FZufAMaR/HOkGY4A06fJN5BISXEavb1/P2UyQvgmEAOx3ANeCyDjLr3LEgiSBkBaUb/PCTySoCuVcKdvE59IobqDfNvrfwA8Y9Il5tOOino6uC6OqVd1LPsMg0ZCnTS25zUXGpBEsDYdr1r8nuckN3IoD68OcmPJqZw/8bX+nJaVR3I=
+
+notifications:
+  email: false
+
+before_install:
+  - pip install --upgrade pip
+  - pip install flake8
+
+script:
+- flake8 *.py

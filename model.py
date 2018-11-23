@@ -34,12 +34,12 @@ class Model():
     def load_mbti_dataset(self, data_path, seed=123):
         # Load and shuffle the data
         data = pd.read_csv(data_path)
-        
+
         # split the personality type into Favourite world, Information, Decisions and Structure
-        data['F'] = data.apply(lambda row: row.type[0], axis = 1)
-        data['I'] = data.apply(lambda row: row.type[1], axis = 1)
-        data['D'] = data.apply(lambda row: row.type[2], axis = 1)
-        data['S'] = data.apply(lambda row: row.type[3], axis = 1)
+        data['F'] = data.apply(lambda row: row.type[0], axis=1)
+        data['I'] = data.apply(lambda row: row.type[1], axis=1)
+        data['D'] = data.apply(lambda row: row.type[2], axis=1)
+        data['S'] = data.apply(lambda row: row.type[3], axis=1)
         print(data.F.value_counts())
         print(data.I.value_counts())
         print(data.D.value_counts())
@@ -58,9 +58,9 @@ class Model():
         # 80:20 split for training and testing
         train, test = train_test_split(self.df, test_size=0.2)
         train_texts = train["posts"]
-        train_labels = train["D"]
+        train_labels = train["type"]
         test_texts = test["posts"]
-        test_labels = test["D"]
+        test_labels = test["type"]
         return train_texts, np.array(train_labels), test_texts, np.array(test_labels)
 
     def vectorize(self):
@@ -80,14 +80,13 @@ class Model():
             min_df=2)   # gets rid of tokens appearing in less than 2 docs
 
         # Creates our term-frequency inverse document frequency matrix
-        # with columns = number of tokens and rows = our corpus size
+        # with columns = number of terms and rows = our corpus size
         x_train = vectorizer.fit_transform(train_texts)
         # already learned about our corpus, so we can just use transform
         x_test = vectorizer.transform(test_texts)
 
         # Use f_classif to calculate feature importance and get the 20,000 most important features
-        selector = SelectKBest(f_classif, min(100, x_train.shape[1]))
-
+        selector = SelectKBest(f_classif, min(20000, x_train.shape[1]))
         # Run score function on the posts with the target values (labels)
         selector.fit(x_train, train_labels)
 
@@ -111,14 +110,14 @@ class Model():
             Dropout(rate=0.2, input_shape=features),
 
             # Use 2 Dense layers
-            Dense(units=128),
+            Dense(units=64, activation='relu'),
             Dropout(rate=0.2),
-            Dense(units=128),
+            Dense(units=64, activation='relu'),
             Dropout(rate=0.2),
 
             # Output layer, using softmax as our activation function for multi-class
             # classification and 16 output parameters for 16 personalities
-            Dense(units=1, activation='sigmoid')])
+            Dense(units=16, activation='softmax')])
         print(model.summary())
         return model
 
@@ -134,7 +133,7 @@ class Model():
         model = self.mlp_model(x_train.shape[1:])
         optimizer = optimizers.Adam(lr=1e-3)    # learning rate of 1e-3
         model.compile(optimizer=optimizer,
-                      loss=losses.binary_crossentropy,
+                      loss=losses.sparse_categorical_crossentropy,
                       metrics=['accuracy'])
 
         # call back to stop early when losing validation, i.e. stop if loss doesn't decrease in two consecutive tries
@@ -148,7 +147,7 @@ class Model():
             callbacks=callback,
             validation_data=(x_test, test_labels),
             verbose=2,  # Logs once per epoch.
-            batch_size=512)
+            batch_size=100)
 
         # Print the results
         history = history.history
@@ -159,7 +158,7 @@ class Model():
         model.save('mlp_model.h5')
         return history['val_acc'][-1], history['val_loss'][-1]
 
-    
+
 if __name__ == "__main__":
     a = Model("mbti.csv")
     a.train_model()

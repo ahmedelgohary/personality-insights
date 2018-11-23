@@ -15,7 +15,6 @@ def main():
 def delete_messages():
     # Get rid of redundant data
     facebook_messages.clean_messages()
-
     return "Data successfully deleted"
 
 

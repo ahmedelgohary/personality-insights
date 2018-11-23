@@ -14,5 +14,6 @@ before_install:
   - pip install --upgrade pip
   - pip install flake8
 
-script:
-- flake8 *.py
+install:
+  - pip install --user -r requirements.txt
+

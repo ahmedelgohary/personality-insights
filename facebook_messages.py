@@ -6,8 +6,8 @@ import shutil
 
 class facebook_messages():
     '''
-    Use this to delete and clean up your files. 
-    DELETES group chats and any chats that are not one-on-one chats to save 
+    Use this to delete and clean up your files.
+    DELETES group chats and any chats that are not one-on-one chats to save
     space
     '''
     @staticmethod

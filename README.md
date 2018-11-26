@@ -1,5 +1,5 @@
 # Personality Insights
-[![Build Status](https://travis-ci.com/ahmedelgohary/surrounding-me.svg?token=bg9PLDmYCBsbE4hyvqF8&branch=master)](https://travis-ci.com/ahmedelgohary/surrounding-me)
+[![Build Status](https://travis-ci.com/ahmedelgohary/personality-insights.svg?branch=master)](https://travis-ci.com/ahmedelgohary/personality-insights)
 
 ---
 ## Background info:

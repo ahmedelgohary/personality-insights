@@ -7,7 +7,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def main():
-    # facebook_messages.find_close_friends()
+    facebook_messages.find_close_friends()
     return "Hello, World"
 
 

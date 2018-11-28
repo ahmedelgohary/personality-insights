@@ -1,8 +1,11 @@
+import heapq
 import json
 import os
 import re
 import shutil
-import heapq
+<< << << < HEAD
+== == == =
+>>>>>> > 514cb2547ac4c2c61be4c6d8f74597cb650da618
 
 
 class facebook_messages():
@@ -20,7 +23,7 @@ class facebook_messages():
             try:
                 with open(os.path.join(conversation_path, "message.json")) as f:
                     data = json.load(f)
-                    if (len(data['messages'])> 30000):
+                    if (len(data['messages']) > 30000):
                         print(data['participants'][0]['name'])
                         print(len(data['messages']))
             except NotADirectoryError as e:
@@ -39,7 +42,7 @@ class facebook_messages():
                     # get rid of unknown users
                     shutil.rmtree(conversation_path)
                     continue
-                
+
                 with open(os.path.join(conversation_path, "message.json")) as f:
                     data = json.load(f)
                     if data["thread_type"] != "Regular":
@@ -50,6 +53,7 @@ class facebook_messages():
                 pass
             except Exception as e:
                 print(e)
+
 
 if __name__ == "__main__":
     facebook_messages.find_close_friends()

@@ -62,13 +62,13 @@ class Model():
         test_texts = test["posts"]
         test_labels = test["type"]
         return train_texts, np.array(train_labels), test_texts, np.array(test_labels)
-    
+
     def on_epoch_end(self, batch, logs={}):
         predict = np.asarray(self.model.predict(self.validation_data[0]))
         targ = self.validation_data[1]
-        self.f1s=f1(targ, predict)
+        self.f1s = f1(targ, predict)
         return
-    
+
     def vectorize(self):
         train_texts, train_labels, test_texts, test_labels = self.split_data()
 
@@ -144,7 +144,6 @@ class Model():
 
         # call back to stop early when losing validation, i.e. stop if loss doesn't decrease in two consecutive tries
         callback = [callbacks.EarlyStopping(monitor='val_loss', patience=3)]
-        callbacks.
 
         # Train and validate model.
         history = model.fit(

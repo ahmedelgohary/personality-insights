@@ -1,9 +1,5 @@
 # Personality Insights
-<<<<<<< HEAD
-[![Build Status](https://travis-ci.com/ahmedelgohary/surrounding-me.svg?token=bg9PLDmYCBsbE4hyvqF8&branch=master)](https://travis-ci.com/ahmedelgohary/surrounding-me)
-=======
 [![Build Status](https://travis-ci.com/ahmedelgohary/personality-insights.svg?branch=master)](https://travis-ci.com/ahmedelgohary/personality-insights)
->>>>>>> 514cb2547ac4c2c61be4c6d8f74597cb650da618
 
 ---
 ## Background info:
@@ -31,6 +27,7 @@ Our dataset contains 8675 rows corresponding to 8675 people with one column for 
 Some metrics:
 1) We have 16 topics since the MBTI personality type classifies everyone into one of 16 different personality types.
 2) A very unbalanced dataset: 
+   
     Personality | Count
     --- | ---
     INFP | 1832

@@ -63,11 +63,11 @@ class Model():
         test_labels = test["type"]
         return train_texts, np.array(train_labels), test_texts, np.array(test_labels)
 
-    def on_epoch_end(self, batch, logs={}):
-        predict = np.asarray(self.model.predict(self.validation_data[0]))
-        targ = self.validation_data[1]
-        self.f1s = f1(targ, predict)
-        return
+    # def on_epoch_end(self, batch, logs={}):
+    #     predict = np.asarray(self.model.predict(self.validation_data[0]))
+    #     targ = self.validation_data[1]
+    #     self.f1s = f1(targ, predict)
+    #     return
 
     def vectorize(self):
         train_texts, train_labels, test_texts, test_labels = self.split_data()

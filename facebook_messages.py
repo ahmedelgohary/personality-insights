@@ -3,9 +3,6 @@ import json
 import os
 import re
 import shutil
-<< << << < HEAD
-== == == =
->>>>>> > 514cb2547ac4c2c61be4c6d8f74597cb650da618
 
 
 class facebook_messages():
